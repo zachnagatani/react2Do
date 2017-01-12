@@ -17,11 +17,11 @@ class UserForm extends Component {
                         <input type="password" />
                     </label>
 
-                    <SubmitButton text={this.props.buttonText} />
+                    <SubmitButton text={this.props.route.buttonText} />
                 </form>
 
-                <p><small>{this.props.questionText}</small></p>
-                <SmallLink text={this.props.linkText} />
+                <p><small>{this.props.route.questionText}</small></p>
+                <SmallLink text={this.props.route.linkText} />
             </div>
         );
     }
