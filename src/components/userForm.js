@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
 import SubmitButton from './submitButton';
 import SmallLink from './smallLink';
+import LogoContainer from './logo';
 
 class UserForm extends Component {
     render() {
         return(
             <div className="user-form">
-                <form>
-                    <label>
+                <form className="user-form__form" method="POST">
+                    <label htmlFor="username">
                         Username
-                        <input type="text" />
                     </label>
+                    <input type="text" id="username" name="username" />
                     
-                    <label>
+                    <label htmlFor="password">
                         Password
-                        <input type="password" />
                     </label>
+                    <input type="password" id="password" name="password" />
 
                     <SubmitButton text={this.props.route.buttonText} />
                 </form>
