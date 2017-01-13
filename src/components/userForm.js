@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import SubmitButton from './submitButton';
 import SmallLink from './smallLink';
 import LogoContainer from './logo';
@@ -31,16 +32,31 @@ class UserForm extends Component {
     }
 
     handleClick() {
-        const URL = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup'; 
-        fetch(URL, {
+        let url;
+        switch (this.props.route.buttonText) {
+            case 'Sign Up':
+                 url = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup';
+                break;
+            case 'Log In':
+                url = 'https://tranquil-headland-44852.herokuapp.com/api/users/login';
+                break;
+        }
+
+        fetch(url, {
             method: 'POST',
-            body: this.state
+            body: {
+                'username': this.state.usernameInput,
+                'password': this.state.passwordInput
+            }
+        }).catch(function(error) {
+            alert(error);
         }).then(function(response) {
             // auth.saveToken(response.text);
-            // console.log(response.text());
+            console.log(response.text());
             return response.text();
         }).then(function(token) {
             auth.saveToken(token);
+            browserHistory.push('/todolist');
         });
     }
 
