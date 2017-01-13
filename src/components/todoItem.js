@@ -5,12 +5,11 @@ class TodoItem extends Component {
     render() {
         return (
             <li className="todo-item">
-                {this.props.text}
-                <br />
+                <span>{this.props.text}</span>
                 <span>
-                    <IconButton name="check" />
-                    <IconButton name="pencil" />
-                    <IconButton name="cancel" />
+                    <IconButton name="check icon" />
+                    <IconButton name="edit-solid icon" />
+                    <IconButton name="remove icon" />
                 </span>
             </li>
         );
