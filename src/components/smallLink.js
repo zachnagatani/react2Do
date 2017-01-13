@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router';
 
 const SmallLink = props => {
     return (
-        <a href="#">{props.text}</a>
+        <Link to={props.linkTo}>{props.text}</Link>
     );
 };
 

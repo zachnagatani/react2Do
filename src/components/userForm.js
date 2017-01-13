@@ -21,7 +21,7 @@ class UserForm extends Component {
                 </form>
 
                 <p><small>{this.props.route.questionText}</small></p>
-                <SmallLink text={this.props.route.linkText} />
+                <SmallLink text={this.props.route.linkText} linkTo={this.props.route.linkTo} />
             </div>
         );
     }
