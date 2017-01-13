@@ -1,14 +1,14 @@
 const auth = {
     saveToken: (token) => {
-        $window.localStorage['mean-token'] = token;
+        window.localStorage['mean-token'] = token;
     },
 
     getToken: () => {
-        return $window.localStorage['mean-token'];
+        return window.localStorage['mean-token'];
     },
 
     logout: () => {
-        $window.localStorage.removeItem('mean-token');
+        window.localStorage.removeItem('mean-token');
     },
 
     isLoggedIn: function() {
@@ -17,7 +17,7 @@ const auth = {
 
         if(token) {
             payload = token.split('.')[1];
-            payload = $window.atob(payload);
+            payload = window.atob(payload);
             payload = JSON.parse(payload);
             return payload.exp > Date.now() / 1000;
         } else {
