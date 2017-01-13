@@ -8,7 +8,7 @@ class TodoItem extends Component {
                 <span>{this.props.text}</span>
                 <span>
                     <IconButton name="check icon" />
-                    <IconButton name="edit-solid icon" />
+                    <IconButton name="edit icon" />
                     <IconButton name="remove icon" />
                 </span>
             </li>

@@ -67,6 +67,32 @@
   border-bottom: solid 2px transparent;
 }
 
+.edit.icon {
+  color: #000;
+  position: absolute;
+  margin-left: 4px;
+  margin-top: 7px;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  border: solid 1px currentColor;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.edit.icon:before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: -1px;
+  width: 0px;
+  height: 0px;
+  border-left: solid 5px transparent;
+  border-right: solid 5px currentColor;
+  border-top: solid 2px transparent;
+  border-bottom: solid 2px transparent;
+}
+
 .icon-button {
   margin: 15px;
   cursor: pointer;
@@ -74,6 +100,9 @@
 }
 
 /* Global */
+#root {
+  height: 100%;
+}
 
 input[type=text],
 input[type=password] {
@@ -193,3 +222,27 @@ input[type=password] {
   margin-top: 10px;
   align-self: flex-end;
 }
+
+/* Add Button */
+
+.add-button {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  cursor: pointer;
+  float: right;
+  box-shadow: .5px .5px 1px 1px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.add-button:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+/* Thanks for the shadow on my button, Samuel Thornton! https://codepen.io/sdthornton/pen/wBZdXq*/

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 const AddButton = props => {
     return (
-        <button className="add-button">+</button>
+        <div className="add-button">+</div>
     );
 };
+
+export default AddButton;
