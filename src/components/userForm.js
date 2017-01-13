@@ -15,6 +15,7 @@ class UserForm extends Component {
 
         this.handleUsernameInput = this.handleUsernameInput.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     handleUsernameInput(event) {
@@ -26,6 +27,20 @@ class UserForm extends Component {
     handlePasswordInput(event) {
         this.setState({
             passwordInput: event.target.value
+        });
+    }
+
+    handleClick() {
+        const URL = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup'; 
+        fetch(URL, {
+            method: 'POST',
+            body: this.state
+        }).then(function(response) {
+            // auth.saveToken(response.text);
+            // console.log(response.text());
+            return response.text();
+        }).then(function(token) {
+            auth.saveToken(token);
         });
     }
 
@@ -43,7 +58,7 @@ class UserForm extends Component {
                     </label>
                     <input type="password" id="password" name="password" value={this.state.passwordInput} onChange={this.handlePasswordInput} />
 
-                    <SubmitButton text={this.props.route.buttonText} />
+                    <SubmitButton text={this.props.route.buttonText} handleClick={this.handleClick} />
                 </form>
 
                 <p><small>{this.props.route.questionText}</small></p>
