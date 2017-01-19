@@ -2,6 +2,12 @@ import UserForm from './userForm';
 import { connect } from 'react-redux';
 import { login } from '../state/actions';
 
+const mapStateToProps = state => {
+    return {
+        username: state.username
+    }
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         onFormSubmit: username => {
@@ -9,12 +15,6 @@ const mapDispatchToProps = dispatch => {
         }
     }
 };
-
-const mapStateToProps = state => {
-    return {
-        username: state.username
-    }
-}
 
 export const UserFormContainer = connect(
     mapStateToProps,

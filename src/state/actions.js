@@ -23,3 +23,10 @@ export function toggleTodo(id) {
         id
     }
 }
+
+export const DANGEROUSLY_CLEAR_TODOS = 'CLEAR_TODOS';
+export function dangerouslyClearTodos() {
+    return {
+        type: DANGEROUSLY_CLEAR_TODOS
+    }
+}

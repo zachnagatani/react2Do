@@ -12,7 +12,8 @@ import SmallLink from './components/smallLink';
 import DashboardContainer from './components/dashboardContainer';
 import DashboardHeader from './components/dashboardHeader';
 import { createStore, combineReducers } from 'redux';
-import { ADD_TODO, addTodo, LOGIN, login, TOGGLE_TODO, toggleTodo } from './state/actions';
+import { ADD_TODO, addTodo, LOGIN, login, TOGGLE_TODO, toggleTodo, DANGEROUSLY_CLEAR_TODOS, dangerouslyClearTodos } from './state/actions';
+import auth from './services/auth';
 
 /**
  * @param state - todos array from the state. defaults to an empty array
@@ -41,6 +42,8 @@ function todosReducer(state = [], action) {
           return todo;
         })
       });
+    case DANGEROUSLY_CLEAR_TODOS:
+      return [];
     default:
       return state;
   } 
@@ -71,15 +74,27 @@ const reactToDo = combineReducers({
 
 export let store = createStore(reactToDo);
 
+store.dispatch(addTodo('poop', false, 1));
+store.dispatch(addTodo('poop2', false, 2));
+store.dispatch(addTodo('poop3', false, 3));
+
+console.log(store.getState());
+
+function requireAuth(nextState, replaceState) {
+  if (!auth.isLoggedIn()) {
+    replaceState({ nextPathname: nextState.location.pathname }, '/');
+  }
+}
+
 class App extends Component {
   render() {
     return (
       <div className="App container">
         <LogoContainer />
         <Router history={browserHistory}>
-          <Route path="/" component={UserFormContainer} buttonText="Log In" questionText="New here?" linkText="Sign Up" linkTo="/signup" />
-          <Route path="/signup" component={UserForm} buttonText="Sign Up" questionText="Come here often?" linkText="Log In" linkTo="/" />
-          <Route path="/todolist" component={DashboardContainer} />
+          <Route path="/" component={UserFormContainer} buttonText="Log In" questionText="New here?" linkText="Sign Up" linkTo="/signup" onEnter={() => {console.log(store.getState())}} />
+          <Route path="/signup" component={UserFormContainer} buttonText="Sign Up" questionText="Come here often?" linkText="Log In" linkTo="/" />
+          <Route path="/todolist" component={DashboardContainer} onEnter={requireAuth} />
         </Router>
       </div>
     );

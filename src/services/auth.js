@@ -26,7 +26,7 @@ const auth = {
     },
 
     currentUser: function() {
-        if(self.isLoggedIn()) {
+        if(this.isLoggedIn()) {
             const token = this.getToken();
             let payload = token.split('.')[1];
             payload = window.atob(payload);

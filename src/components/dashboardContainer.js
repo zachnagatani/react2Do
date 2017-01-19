@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DashboardHeaderContainer } from './dashboardHeaderContainer';
 import TodoList from './todoList';
-import SmallLink from './smallLink';
+import { LogoutLinkContainer } from './logoutLinkContainer';
 import AddButton from './addButton';
 
 const DashboardContainer = props => {
@@ -9,7 +9,7 @@ const DashboardContainer = props => {
         <div className="dashboard-container">
             <DashboardHeaderContainer />
             <TodoList />
-            <SmallLink linkTo="/" text="Log Out" />
+            <LogoutLinkContainer />
             <AddButton />
         </div>
     );
