@@ -6,6 +6,14 @@ export function login(username) {
     }
 }
 
+export const LOGOUT = 'LOGOUT';
+export function logout() {
+    return {
+        type: LOGOUT,
+        username: ''
+    }
+}
+
 export const ADD_TODO = 'ADD_TODO';
 export function addTodo(todo, isDone, id) {
     return {

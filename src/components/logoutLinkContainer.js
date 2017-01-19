@@ -1,7 +1,7 @@
 import LogoutLink from './logoutLink';
 import { connect } from 'react-redux';
 import { login } from '../state/actions';
-import { dangerouslyClearTodos} from '../state/actions';
+import { dangerouslyClearTodos, logout } from '../state/actions';
 import auth from '../services/auth';
 
 const mapDispatchToProps = dispatch => {
@@ -9,6 +9,7 @@ const mapDispatchToProps = dispatch => {
         onLogout: () => {
             auth.logout();
             dispatch(dangerouslyClearTodos());
+            dispatch(logout());
         }
     }
 };

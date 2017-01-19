@@ -12,7 +12,7 @@ import SmallLink from './components/smallLink';
 import DashboardContainer from './components/dashboardContainer';
 import DashboardHeader from './components/dashboardHeader';
 import { createStore, combineReducers } from 'redux';
-import { ADD_TODO, addTodo, LOGIN, login, TOGGLE_TODO, toggleTodo, DANGEROUSLY_CLEAR_TODOS, dangerouslyClearTodos } from './state/actions';
+import { ADD_TODO, addTodo, LOGIN, login, LOGOUT, logout, TOGGLE_TODO, toggleTodo, DANGEROUSLY_CLEAR_TODOS, dangerouslyClearTodos } from './state/actions';
 import auth from './services/auth';
 
 /**
@@ -58,6 +58,8 @@ function todosReducer(state = [], action) {
 function loginReducer(state = '', action) {
   switch(action.type) {
     case LOGIN:
+      return action.username;
+    case LOGOUT:
       return action.username;
     default:
       return state;  
