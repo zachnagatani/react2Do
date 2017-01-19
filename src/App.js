@@ -10,7 +10,7 @@ import TodoList from './components/todoList';
 import SmallLink from './components/smallLink';
 import DashboardContainer from './components/dashboardContainer';
 import DashboardHeader from './components/dashboardHeader';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { ADD_TODO, addTodo, LOGIN, login, TOGGLE_TODO, toggleTodo } from './state/actions';
 
 const initialState = {
@@ -18,7 +18,7 @@ const initialState = {
   todos: []
 };
 
-function reactToDo(state = initialState, action) {
+function todosReducer(state = [], action) {
   switch (action.type) {
     case ADD_TODO:
       return Object.assign({}, state, {
@@ -39,12 +39,27 @@ function reactToDo(state = initialState, action) {
               isDone: !todo.isDone
             });
           }
+          return todo;
         });
       });
     default:
       return state;
+  } 
+}
+
+function loginReducer(state = null, action) {
+  switch(action.type) {
+    case LOGIN:
+      return action.username;
+    default:
+      return state;  
   }
 }
+
+const reactToDo = combineReducers({
+  username: loginReducer,
+  todos: todosReducer
+});
 
 class App extends Component {
   render() {
