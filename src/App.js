@@ -13,41 +13,45 @@ import DashboardHeader from './components/dashboardHeader';
 import { createStore, combineReducers } from 'redux';
 import { ADD_TODO, addTodo, LOGIN, login, TOGGLE_TODO, toggleTodo } from './state/actions';
 
-const initialState = {
-  username: null,
-  todos: []
-};
-
+/**
+ * @param state - todos array from the state. defaults to an empty array
+ * @param {Object} action - the action object with the info to update the state
+ * @returns {Array} an updated copy of the todos array, or the default state
+ */
 function todosReducer(state = [], action) {
   switch (action.type) {
     case ADD_TODO:
-      return Object.assign({}, state, {
-        todos: [
-          ...state.todos,
-          {
-            todo: action.todo,
-            isDone: action.isDone,
-            id: action.id
-          }
-        ]
-      });
+      return [
+        ...state,
+        {
+          todo: action.todo,
+          isDone: action.isDone,
+          id: action.id
+        }
+      ];
     case TOGGLE_TODO:
       return Object.assign({}, state, {
-        todos: state.todos.map((todo, id) => {
+        todos: state.map((todo, id) => {
           if (id === todo.id) {
             return Object.assign({}, todo, {
               isDone: !todo.isDone
             });
           }
           return todo;
-        });
+        })
       });
     default:
       return state;
   } 
 }
 
-function loginReducer(state = null, action) {
+
+/**
+ * @param {String} state - the username from the state. defaults to null
+ * @returns {Array} an updated copy of the todos array, or the default state
+ * @returns {String} the username of to update the state, or the default state
+ */
+function loginReducer(state = '', action) {
   switch(action.type) {
     case LOGIN:
       return action.username;
@@ -56,10 +60,27 @@ function loginReducer(state = null, action) {
   }
 }
 
+/**
+ * Hub for combining the reducers and receiving actions
+ */
 const reactToDo = combineReducers({
   username: loginReducer,
   todos: todosReducer
 });
+
+let store = createStore(reactToDo);
+
+let unsubscribe = store.subscribe(() => 
+  console.log(store.getState())
+);
+
+console.log(store.getState());
+
+store.dispatch(login('kittyfat101'));
+store.dispatch(addTodo('Poop', false, 1));
+store.dispatch(addTodo('Redux React it up', false, 2));
+store.dispatch(toggleTodo(2));
+unsubscribe();
 
 class App extends Component {
   render() {

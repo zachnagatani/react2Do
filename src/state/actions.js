@@ -19,7 +19,7 @@ export function addTodo(todo, isDone, id) {
 export const TOGGLE_TODO = 'TOGGLE_TODO';
 export function toggleTodo(id) {
     return {
-        type: TOGGLE_TODO
+        type: TOGGLE_TODO,
         id
     }
 }
