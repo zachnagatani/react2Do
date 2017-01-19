@@ -35,12 +35,12 @@ class UserForm extends Component {
         let url;
         switch (this.props.route.buttonText) {
             case 'Sign Up':
-                //  url = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup';
-                 url = 'http://localhost:8000/api/users/signup';
+                 url = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup';
+                //  url = 'http://localhost:8000/api/users/signup';
                 break;
             case 'Log In':
-                // url = 'https://tranquil-headland-44852.herokuapp.com/api/users/login';
-                url = 'http://localhost:8000/api/users/login';
+                url = 'https://tranquil-headland-44852.herokuapp.com/api/users/login';
+                // url = 'http://localhost:8000/api/users/login';
                 break;
         }
 
@@ -62,7 +62,6 @@ class UserForm extends Component {
                 return response.text();
             }
         }).then(function(data){
-            console.log(data);
             auth.saveToken(JSON.parse(data).token);
             browserHistory.push('/todolist');
         });

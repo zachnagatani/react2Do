@@ -10,6 +10,41 @@ import TodoList from './components/todoList';
 import SmallLink from './components/smallLink';
 import DashboardContainer from './components/dashboardContainer';
 import DashboardHeader from './components/dashboardHeader';
+import { createStore } from 'redux';
+import { ADD_TODO, addTodo, LOGIN, login, TOGGLE_TODO, toggleTodo } from './state/actions';
+
+const initialState = {
+  username: null,
+  todos: []
+};
+
+function reactToDo(state = initialState, action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return Object.assign({}, state, {
+        todos: [
+          ...state.todos,
+          {
+            todo: action.todo,
+            isDone: action.isDone,
+            id: action.id
+          }
+        ]
+      });
+    case TOGGLE_TODO:
+      return Object.assign({}, state, {
+        todos: state.todos.map((todo, id) => {
+          if (id === todo.id) {
+            return Object.assign({}, todo, {
+              isDone: !todo.isDone
+            });
+          }
+        });
+      });
+    default:
+      return state;
+  }
+}
 
 class App extends Component {
   render() {
