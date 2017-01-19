@@ -35,27 +35,35 @@ class UserForm extends Component {
         let url;
         switch (this.props.route.buttonText) {
             case 'Sign Up':
-                 url = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup';
+                //  url = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup';
+                 url = 'http://localhost:8000/api/users/signup';
                 break;
             case 'Log In':
-                url = 'https://tranquil-headland-44852.herokuapp.com/api/users/login';
+                // url = 'https://tranquil-headland-44852.herokuapp.com/api/users/login';
+                url = 'http://localhost:8000/api/users/login';
                 break;
         }
 
+        const opts = {
+            username: this.state.usernameInput,
+            password: this.state.passwordInput
+        };
+
         fetch(url, {
+            headers: {
+                'Content-Type': 'application/json' // won't work without this!
+            },
             method: 'POST',
-            body: {
-                'username': this.state.usernameInput,
-                'password': this.state.passwordInput
-            }
+            body: JSON.stringify(opts)
         }).catch(function(error) {
             alert(error);
         }).then(function(response) {
-            // auth.saveToken(response.text);
-            console.log(response.text());
-            return response.text();
-        }).then(function(token) {
-            auth.saveToken(token);
+            if (response.status === 200) {
+                return response.text();
+            }
+        }).then(function(data){
+            console.log(data);
+            auth.saveToken(JSON.parse(data).token);
             browserHistory.push('/todolist');
         });
     }
