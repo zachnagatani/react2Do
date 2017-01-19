@@ -4,6 +4,7 @@ import SubmitButton from './submitButton';
 import SmallLink from './smallLink';
 import LogoContainer from './logo';
 import auth from '../services/auth';
+import {store} from '../App';
 
 class UserForm extends Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class UserForm extends Component {
     }
 
     handleClick() {
+        var self = this;
         let url;
         switch (this.props.route.buttonText) {
             case 'Sign Up':
@@ -59,6 +61,7 @@ class UserForm extends Component {
             alert(error);
         }).then(function(response) {
             if (response.status === 200) {
+                self.props.onFormSubmit(opts.username);
                 return response.text();
             }
         }).then(function(data){

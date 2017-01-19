@@ -5,6 +5,7 @@ import './App.css';
 import './simple-grid.css';
 import LogoContainer from './components/logo.js';
 import UserForm from './components/userForm';
+import { UserFormContainer } from './components/userFormContainer';
 import TodoItem from './components/todoItem';
 import TodoList from './components/todoList';
 import SmallLink from './components/smallLink';
@@ -68,19 +69,7 @@ const reactToDo = combineReducers({
   todos: todosReducer
 });
 
-let store = createStore(reactToDo);
-
-let unsubscribe = store.subscribe(() => 
-  console.log(store.getState())
-);
-
-console.log(store.getState());
-
-store.dispatch(login('kittyfat101'));
-store.dispatch(addTodo('Poop', false, 1));
-store.dispatch(addTodo('Redux React it up', false, 2));
-store.dispatch(toggleTodo(2));
-unsubscribe();
+export let store = createStore(reactToDo);
 
 class App extends Component {
   render() {
@@ -88,9 +77,9 @@ class App extends Component {
       <div className="App container">
         <LogoContainer />
         <Router history={browserHistory}>
-          <Route path="/" component={UserForm} buttonText="Log In" questionText="New here?" linkText="Sign Up" linkTo="/signup" />
+          <Route path="/" component={UserFormContainer} buttonText="Log In" questionText="New here?" linkText="Sign Up" linkTo="/signup" />
           <Route path="/signup" component={UserForm} buttonText="Sign Up" questionText="Come here often?" linkText="Log In" linkTo="/" />
-          <Route path="/todolist" component={DashboardContainer} username="kittyfat101" />
+          <Route path="/todolist" component={DashboardContainer} />
         </Router>
       </div>
     );

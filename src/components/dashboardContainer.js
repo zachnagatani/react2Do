@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DashboardHeader from './dashboardHeader';
+import { DashboardHeaderContainer } from './dashboardHeaderContainer';
 import TodoList from './todoList';
 import SmallLink from './smallLink';
 import AddButton from './addButton';
@@ -7,7 +7,7 @@ import AddButton from './addButton';
 const DashboardContainer = props => {
     return (
         <div className="dashboard-container">
-            <DashboardHeader username={props.route.username} />
+            <DashboardHeaderContainer />
             <TodoList />
             <SmallLink linkTo="/" text="Log Out" />
             <AddButton />
