@@ -69,7 +69,6 @@ class UserForm extends Component {
             }
         }).then(function(data){
             auth.saveToken(JSON.parse(data).token);
-            // browserHistory.push('/todolist');
         }).then(function() {
             fetch(geturl, {
                 headers: {
@@ -83,7 +82,7 @@ class UserForm extends Component {
             }).then(function(todos){
                 self.props.pushTodosToState(JSON.parse(todos));
             }).then(function(){
-                console.log(store.getState());
+                browserHistory.push('/todolist');
             });
         });
     }

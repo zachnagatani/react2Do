@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DashboardHeaderContainer } from './dashboardHeaderContainer';
-import TodoList from './todoList';
+import { TodoListContainer } from './todoListContainer';
 import { LogoutLinkContainer } from './logoutLinkContainer';
 import AddButton from './addButton';
 
@@ -8,7 +8,7 @@ const DashboardContainer = props => {
     return (
         <div className="dashboard-container">
             <DashboardHeaderContainer />
-            <TodoList />
+            <TodoListContainer />
             <LogoutLinkContainer />
             <AddButton />
         </div>

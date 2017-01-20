@@ -88,7 +88,7 @@ class App extends Component {
       <div className="App container">
         <LogoContainer />
         <Router history={browserHistory}>
-          <Route path="/" component={UserFormContainer} buttonText="Log In" questionText="New here?" linkText="Sign Up" linkTo="/signup" onEnter={() => {console.log(store.getState())}} />
+          <Route path="/" component={UserFormContainer} buttonText="Log In" questionText="New here?" linkText="Sign Up" linkTo="/signup" />
           <Route path="/signup" component={UserFormContainer} buttonText="Sign Up" questionText="Come here often?" linkText="Log In" linkTo="/" />
           <Route path="/todolist" component={DashboardContainer} onEnter={requireAuth} />
         </Router>
