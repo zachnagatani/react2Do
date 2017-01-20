@@ -12,7 +12,7 @@ import SmallLink from './components/smallLink';
 import DashboardContainer from './components/dashboardContainer';
 import DashboardHeader from './components/dashboardHeader';
 import { createStore, combineReducers } from 'redux';
-import { ADD_TODO, addTodo, LOGIN, login, LOGOUT, logout, TOGGLE_TODO, toggleTodo, DANGEROUSLY_CLEAR_TODOS, dangerouslyClearTodos } from './state/actions';
+import { ADD_TODO, addTodo, DELETE_TODO, deleteTodo, LOGIN, login, LOGOUT, logout, TOGGLE_TODO, toggleTodo, DANGEROUSLY_CLEAR_TODOS, dangerouslyClearTodos } from './state/actions';
 import auth from './services/auth';
 import apiCalls from './services/apiCalls';
 
@@ -32,16 +32,18 @@ function todosReducer(state = [], action) {
           id: action.id
         }
       ];
+    case DELETE_TODO:
+      return state.filter(todo => {
+        return todo.id !== action.id;
+      });
     case TOGGLE_TODO:
-      return Object.assign({}, state, {
-        todos: state.map((todo, id) => {
-          if (id === todo.id) {
-            return Object.assign({}, todo, {
-              isDone: !todo.isDone
-            });
-          }
-          return todo;
-        })
+      return state.map(todo => {
+        if (todo.id === action.id) {
+          return Object.assign({}, todo, {
+            isDone: !todo.isDone
+          })
+        }
+        return todo;
       });
     case DANGEROUSLY_CLEAR_TODOS:
       return [];

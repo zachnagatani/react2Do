@@ -24,6 +24,14 @@ export function addTodo(todo, isDone, id) {
     }
 }
 
+export const DELETE_TODO = 'DELETE_TODO';
+export function deleteTodo(id) {
+    return {
+        type: DELETE_TODO,
+        id
+    }
+}
+
 export const TOGGLE_TODO = 'TOGGLE_TODO';
 export function toggleTodo(id) {
     return {
