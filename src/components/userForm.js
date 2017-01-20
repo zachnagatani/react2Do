@@ -4,6 +4,7 @@ import SubmitButton from './submitButton';
 import SmallLink from './smallLink';
 import LogoContainer from './logo';
 import auth from '../services/auth';
+import apiCalls from '../services/apiCalls';
 import {store} from '../App';
 import { addTodo } from '../state/actions';
 
@@ -69,22 +70,8 @@ class UserForm extends Component {
             }
         }).then(function(data){
             auth.saveToken(JSON.parse(data).token);
-        }).then(function() {
-            fetch(geturl, {
-                headers: {
-                    Authorization: 'Bearer ' + auth.getToken()
-                },
-                method: 'GET'
-            }).catch(function(error) {
-                alert(error);
-            }).then(function(response) {
-                return response.text();
-            }).then(function(todos){
-                self.props.pushTodosToState(JSON.parse(todos));
-            }).then(function(){
-                browserHistory.push('/todolist');
-            });
-        });
+            browserHistory.push('/todolist');
+        })
     }
 
     render() {

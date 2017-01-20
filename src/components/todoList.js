@@ -25,7 +25,7 @@ function TodoList(props) {
         <div className="todo-list-container">
             <h1>Your Tasks</h1>
             <ul className="todo-list">
-                {props.todos.map(todo => <TodoItem key={todo._id} text={todo.todo} />)}
+                {props.todos.map(todo => <TodoItem key={todo.id} text={todo.todo} />)}
             </ul>
         </div>
     );

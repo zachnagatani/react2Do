@@ -14,6 +14,7 @@ import DashboardHeader from './components/dashboardHeader';
 import { createStore, combineReducers } from 'redux';
 import { ADD_TODO, addTodo, LOGIN, login, LOGOUT, logout, TOGGLE_TODO, toggleTodo, DANGEROUSLY_CLEAR_TODOS, dangerouslyClearTodos } from './state/actions';
 import auth from './services/auth';
+import apiCalls from './services/apiCalls';
 
 /**
  * @param state - todos array from the state. defaults to an empty array
@@ -76,10 +77,14 @@ const reactToDo = combineReducers({
 
 export let store = createStore(reactToDo);
 
-function requireAuth(nextState, replaceState) {
+function requireAuthOrGetTodos(nextState, replaceState) {
   if (!auth.isLoggedIn()) {
     replaceState({ nextPathname: nextState.location.pathname }, '/');
+    return;
   }
+
+  const url = 'https://tranquil-headland-44852.herokuapp.com/api/todos';
+  apiCalls.getTodosAndUpdateStore(store, url, auth.getToken());
 }
 
 class App extends Component {
@@ -90,7 +95,7 @@ class App extends Component {
         <Router history={browserHistory}>
           <Route path="/" component={UserFormContainer} buttonText="Log In" questionText="New here?" linkText="Sign Up" linkTo="/signup" />
           <Route path="/signup" component={UserFormContainer} buttonText="Sign Up" questionText="Come here often?" linkText="Log In" linkTo="/" />
-          <Route path="/todolist" component={DashboardContainer} onEnter={requireAuth} />
+          <Route path="/todolist" component={DashboardContainer} onEnter={requireAuthOrGetTodos} />
         </Router>
       </div>
     );
