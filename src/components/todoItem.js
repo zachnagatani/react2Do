@@ -8,7 +8,7 @@ function TodoItem(props) {
             <span>
                 <IconButton name="check icon" />
                 <IconButton name="edit icon" />
-                <IconButton name="remove icon"
+                <IconButton todoid={props.id} name="remove icon"
                     onDeleteClick={ () => props.onDeleteClick(props.id)}
                     onEditClick={ () => console.log('edit')}
                     onCheckClick={ () => console.log('check')} />

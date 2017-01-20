@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import apiCalls from '../services/apiCalls';
+import auth from '../services/auth';
+import { store } from '../App';
 
 // const IconButton = props => {
 //     return (
@@ -18,6 +21,7 @@ class IconButton extends Component {
 
     handleClick() {
         if (this.props.name === 'remove icon') {
+            apiCalls.deleteTodo(store, 'https://tranquil-headland-44852.herokuapp.com/api/todos/delete/', this.props.todoid, auth.getToken());
             this.props.onDeleteClick();
         } else if (this.props.name === 'edit icon') {
             this.props.onEditClick();
