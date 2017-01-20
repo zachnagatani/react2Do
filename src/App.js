@@ -76,12 +76,6 @@ const reactToDo = combineReducers({
 
 export let store = createStore(reactToDo);
 
-store.dispatch(addTodo('poop', false, 1));
-store.dispatch(addTodo('poop2', false, 2));
-store.dispatch(addTodo('poop3', false, 3));
-
-console.log(store.getState());
-
 function requireAuth(nextState, replaceState) {
   if (!auth.isLoggedIn()) {
     replaceState({ nextPathname: nextState.location.pathname }, '/');

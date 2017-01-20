@@ -5,6 +5,7 @@ import SmallLink from './smallLink';
 import LogoContainer from './logo';
 import auth from '../services/auth';
 import {store} from '../App';
+import { addTodo } from '../state/actions';
 
 class UserForm extends Component {
     constructor(props) {
@@ -34,14 +35,16 @@ class UserForm extends Component {
 
     handleClick() {
         var self = this;
-        let url;
+        let posturl,
+            geturl = 'https://tranquil-headland-44852.herokuapp.com/api/todos';
+            
         switch (this.props.route.buttonText) {
             case 'Sign Up':
-                 url = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup';
+                 posturl = 'https://tranquil-headland-44852.herokuapp.com/api/users/signup';
                 //  url = 'http://localhost:8000/api/users/signup';
                 break;
             case 'Log In':
-                url = 'https://tranquil-headland-44852.herokuapp.com/api/users/login';
+                posturl = 'https://tranquil-headland-44852.herokuapp.com/api/users/login';
                 // url = 'http://localhost:8000/api/users/login';
                 break;
         }
@@ -51,7 +54,7 @@ class UserForm extends Component {
             password: this.state.passwordInput
         };
 
-        fetch(url, {
+        fetch(posturl, {
             headers: {
                 'Content-Type': 'application/json' // won't work without this!
             },
@@ -66,7 +69,22 @@ class UserForm extends Component {
             }
         }).then(function(data){
             auth.saveToken(JSON.parse(data).token);
-            browserHistory.push('/todolist');
+            // browserHistory.push('/todolist');
+        }).then(function() {
+            fetch(geturl, {
+                headers: {
+                    Authorization: 'Bearer ' + auth.getToken()
+                },
+                method: 'GET'
+            }).catch(function(error) {
+                alert(error);
+            }).then(function(response) {
+                return response.text();
+            }).then(function(todos){
+                self.props.pushTodosToState(JSON.parse(todos));
+            }).then(function(){
+                console.log(store.getState());
+            });
         });
     }
 

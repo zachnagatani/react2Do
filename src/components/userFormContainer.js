@@ -1,6 +1,6 @@
 import UserForm from './userForm';
 import { connect } from 'react-redux';
-import { login } from '../state/actions';
+import { login, addTodo } from '../state/actions';
 
 const mapStateToProps = state => {
     return {
@@ -12,6 +12,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onFormSubmit: username => {
             dispatch(login(username));
+        },
+        pushTodosToState: todos => {
+            todos.forEach(todo => dispatch(addTodo(todo.todo, todo.isDone, todo._id)));
         }
     }
 };
